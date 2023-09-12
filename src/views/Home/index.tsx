@@ -10,6 +10,7 @@ import store from '@/store';
 import { increment, decrement, incrementByAmount } from '@/store/modules/counter';
 import Children1 from './views/Children1';
 import Children2 from './views/Children2';
+import Children3 from './views/Children3';
 
 import CounterContext, { defaultValue } from "./context";
 
@@ -40,6 +41,7 @@ function App() {
 
   useEffect(() => {
     store.subscribe(() => {
+      console.log('Counter 回调');
       setCount(store.getState().counter.value)
     })
   }, [])
@@ -77,25 +79,19 @@ function App() {
         <div className="card">
           <Space>
             <Button onClick={() => {
-              store.dispatch(increment());
+              store.dispatch(increment(1));
               // store.dispatch(incrementByAmount(10));
               return count + 1
             }}>
               count is {count}
             </Button>
           </Space>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test HMR
-          </p>
         </div>
-        <p className="read-the-docs">
-          Click on the Vite and React logos to learn more
-        </p>
-
         <div className='mt-8 flex gap-1'>
           <CounterContext.Provider value={contextValue}>
             <Children1 count={count} setNum={setNumCallback} />
-            <Children2 count={count} contextNum={memoContextValue}/>
+            <Children2 count={count} contextNum={memoContextValue} />
+            <Children3 />
           </CounterContext.Provider>
         </div>
         <Outlet />

@@ -9,6 +9,7 @@ import App from './views/Home/index.tsx'
 import About from './views/About/index.tsx'
 import Shop from './views/Shop/index.tsx'
 import RecordVideo from './views/RecordVideo/index.tsx'
+import AsyncFetch from './views/AsyncFetch';
 import './tailwind.css'
 import "@arco-design/web-react/dist/css/arco.css";
 
@@ -21,6 +22,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <Route path="About" element={<About />} />
         <Route path="Shop" element={<Shop />} />
         <Route path="RecordVideo" element={<RecordVideo />} />
+        <Route path="AsyncFetch" element={<AsyncFetch />} />
       </Route >
     </Routes>
   </HashRouter>

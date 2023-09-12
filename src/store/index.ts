@@ -6,10 +6,14 @@
 import { configureStore } from '@reduxjs/toolkit';
 import reduxLogger from 'redux-logger';
 import counterReducer from './modules/counter';
+import userReducer from './modules/users';
+import actionCounter from './modules/actionCounter';
 
 const store = configureStore({
   reducer: {
-    counter: counterReducer
+    counter: counterReducer,
+    user: userReducer,
+    actionCounter
   },
   devTools: process.env.NODE_ENV !== 'production',
   middleware: (getDefaultMiddleware) => {
