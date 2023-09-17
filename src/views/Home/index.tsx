@@ -11,6 +11,7 @@ import { increment, decrement, incrementByAmount } from '@/store/modules/counter
 import Children1 from './views/Children1';
 import Children2 from './views/Children2';
 import Children3 from './views/Children3';
+import threeInit from './CityBg/index.ts';
 
 import CounterContext, { defaultValue } from "./context";
 
@@ -40,6 +41,7 @@ function App() {
   }
 
   useEffect(() => {
+    threeInit();
     store.subscribe(() => {
       console.log('Counter 回调');
       setCount(store.getState().counter.value)
@@ -75,7 +77,7 @@ function App() {
         </div>
       </div>
       {/* 内容 */}
-      <div className="pt-8 px-4 h-[calc(100vh-61px)] bg-white dark:bg-slate-800 dark:text-white">
+      <div className="pt-8 px-4 h-[calc(100vh-61px)] dark:bg-slate-800 dark:text-white">
         <div className="card">
           <Space>
             <Button onClick={() => {
