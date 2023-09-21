@@ -3,7 +3,7 @@
  * @Date: 2023-08-28 13:31:18
  * @Description: 
  */
-import { useId, useState, useEffect, useCallback, useMemo } from 'react'
+import { useId, useState, useLayoutEffect, useEffect, useCallback, useMemo } from 'react'
 import { Button, Space } from '@arco-design/web-react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import store from '@/store';
@@ -12,6 +12,8 @@ import Children1 from './views/Children1';
 import Children2 from './views/Children2';
 import Children3 from './views/Children3';
 import threeInit from './CityBg/index.ts';
+
+import DewuCode from './dewuCode/index.tsx';
 
 import CounterContext, { defaultValue } from "./context";
 
@@ -41,7 +43,7 @@ function App() {
   }
 
   useEffect(() => {
-    threeInit();
+    // threeInit();
     store.subscribe(() => {
       console.log('Counter 回调');
       setCount(store.getState().counter.value)
@@ -52,6 +54,7 @@ function App() {
    * 切换主题时的钩子
    */
   useEffect(() => {
+    console.log('useEffect rerender');
     const html = document.querySelector('html');
     const darkMode = localStorage.getItem('darkMode');
     if (darkMode === 'true') {
@@ -61,6 +64,10 @@ function App() {
     }
     // html?.classList.toggle('dark');
   }, [darkMode])
+
+  useLayoutEffect(() => {
+    console.log('useLayoutEffect rerender');
+  }, [darkMode]);
 
   return (
     <>
@@ -95,6 +102,9 @@ function App() {
             <Children2 count={count} contextNum={memoContextValue} />
             <Children3 />
           </CounterContext.Provider>
+        </div>
+        <div className="mt-10">
+          <DewuCode />
         </div>
         <Outlet />
       </div>

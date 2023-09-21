@@ -5,6 +5,13 @@ const { Option } = Select;
 export default function RecordVideo() {
 
   const videoRef = useRef<HTMLVideoElement>(null);
+  const recorderRef = useRef<{
+    mediaStream: null | MediaStream,
+    mediaRecorder: null | MediaRecorder
+  }>({
+    mediaStream: null,
+    mediaRecorder: null
+  })
 
   const [audioInputArr, setAudioInputArr] = useState<MediaDeviceInfo[]>([]);
   const [videoInputArr, setvideoInputArr] = useState<MediaDeviceInfo[]>([]);
@@ -75,6 +82,10 @@ export default function RecordVideo() {
         .catch(function (err) {
           console.log(err.name + ": " + err.message);
         }); // 总是在最后检查错误
+      if (stream) {
+        recorderRef.current.mediaStream = stream;
+        recorderRef.current.mediaRecorder = new MediaRecorder(stream);
+      }
       const currentAudio = tempAudioInputArr.filter(device => stream?.getAudioTracks()[0]?.label === device.label)[0];
       const currentVideo = tempVideoInputArr.filter(device => stream?.getVideoTracks()[0]?.label === device.label)[0];
       setCurrentAudioInput(currentAudio);
@@ -108,6 +119,15 @@ export default function RecordVideo() {
       }
     }
     getNavigator(options);
+    return () => {
+      const { current: { mediaRecorder, mediaStream } } = recorderRef
+      if (mediaRecorder && mediaRecorder.state === 'inactive' && mediaStream?.active) {
+        mediaRecorder.stop();
+        mediaStream.getTracks().forEach((track) => {
+          track.stop();
+        });
+      }
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
