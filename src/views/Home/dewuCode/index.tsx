@@ -1,3 +1,8 @@
+/*
+ * @Author: 卢天宇
+ * @Date: 2023-09-21 15:26:38
+ * @Description: 
+ */
 import React, { useState, useRef, useCallback, useEffect } from 'react'
 import { Button, Space } from '@arco-design/web-react';
 
@@ -6,7 +11,8 @@ function useIntervalHook(initialState: number = 0, step: number = 1, maxNum: num
   const [num, setNum] = useState(initialState);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   function intervalStart() {
-    if (!timerRef.current === null) return;
+    console.log(timerRef.current);
+    if (timerRef.current !== null) return;
     const timer = setInterval(() => {
       setNum((num) => {
         if (num + step > maxNum) {
