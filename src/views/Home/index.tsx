@@ -16,6 +16,7 @@ import threeInit from './CityBg/index.ts';
 import DewuCode from './dewuCode/index.tsx';
 
 import CounterContext, { defaultValue } from "./context";
+import { strLowerCaseToUpperCase } from '@/utils';
 
 function App() {
   console.log('App rerender');
@@ -106,6 +107,11 @@ function App() {
         <div className="mt-10">
           <DewuCode />
         </div>
+
+        <Button onClick={() => {
+          const str = strLowerCaseToUpperCase('hello world');
+          console.log(str);
+        }}>转换单词首字母大写</Button>
         <Outlet />
       </div>
     </>
