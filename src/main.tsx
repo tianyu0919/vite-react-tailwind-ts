@@ -19,11 +19,12 @@ const About = React.lazy(() => import('./views/About/index.tsx'));
 const Shop = React.lazy(() => import('./views/Shop/index.tsx'));
 const RecordVideo = React.lazy(() => import('./views/RecordVideo/index.tsx'));
 const AsyncFetch = React.lazy(() => import('./views/AsyncFetch'));
+const SuspenseDemo = React.lazy(() => import("./views/Suspense"));
 
 import { HashRouter, Routes, Route } from 'react-router-dom';
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <HashRouter basename='/'>
+ReactDOM.createRoot(document.getElementById("root")!).render(
+  <HashRouter basename="/">
     <Suspense fallback={<div>loading...</div>}>
       <Routes>
         <Route path="/" element={<App />}>
@@ -31,8 +32,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           <Route path="Shop" element={<Shop />} />
           <Route path="RecordVideo" element={<RecordVideo />} />
           <Route path="AsyncFetch" element={<AsyncFetch />} />
-        </Route >
+          <Route path="Suspense" element={<SuspenseDemo />} />
+        </Route>
       </Routes>
     </Suspense>
   </HashRouter>
-)
+);

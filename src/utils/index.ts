@@ -1,3 +1,8 @@
+/*
+ * @Author: 卢天宇
+ * @Date: 2023-10-18 18:58:38
+ * @Description: 
+ */
 // * 工作的月数
 // * 2023年10月18日 云从科技offer的薪资计算。
 const monthArr = [12, 18, 24];
@@ -43,3 +48,46 @@ function strLowerCaseToUpperCase(str = '') {
 export {
   strLowerCaseToUpperCase
 }
+
+// function containsRepeatingLetter(str: string): boolean {
+//   const reg = /[a-zA-Z]/;
+//   let tempStr = '';
+//   let isStr;
+//   for (let i = 0; i < str.length; i++) {
+//     isStr = reg.test(str[i]);
+//     if (isStr && tempStr.endsWith(str[i])) {
+//       return true;
+//     }
+//     tempStr += str[i];
+//   }
+//   return false;
+// }
+
+// console.log('包含连续字符串吗？')
+// console.log(containsRepeatingLetter('rattler'));
+
+function containsRepeatingLetter2(str: string): boolean {
+  const reg = /[a-zA-Z]/;
+  for (let i = 0; i < str.length; i++) {
+    if (reg.test(str.charAt(i)) && str.charAt(i) === str.charAt(i - 1)) {
+      return true;
+    }
+  }
+  return false;
+}
+console.log('包含连续字符串吗？')
+console.log(containsRepeatingLetter2('rattler'));
+
+// 完成一个函数，例如 arr = [1,2,3,4,5,6]， 调用 fn(arr, 2); 返回 [[1,2], [3,4], [5,6]]
+
+function fn(arr: number[], limit = 1) {
+  if (!Array.isArray(arr) || arr?.length == 0) return [];
+  limit = limit > 0 ? limit : 1
+  const result = [];
+  for (let i = 0; i < arr.length; i += limit) {
+    result.push(arr.slice(i, i + limit));
+  }
+  return result;
+}
+
+console.log(fn([1, 2, 3, 4, 5, 6, 7], 2))
