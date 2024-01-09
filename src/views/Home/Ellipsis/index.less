@@ -1,0 +1,49 @@
+// 定义一个名为 .ellipsisLn 的混合（mixin）
+.ellipsisLn(@line) {
+  display: -webkit-box;
+  overflow: hidden;
+  word-wrap: break-word;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: @line;
+
+  position: relative;
+}
+
+.generate-ellipsisLn(@n: 1) when(@n <=100) {
+  .ellipsisLn-@{n} {
+    .ellipsisLn(@n);
+  }
+
+  .generate-ellipsisLn(@n + 1)
+}
+
+.generate-ellipsisLn();
+
+.isEllipsis {
+  padding-right: 28px;
+}
+
+.container {
+  display: grid;
+  /* 使用网格布局 */
+  grid-template-columns: auto min-content;
+  /* 定义两列：一列自动填充，一列内容最小宽度 */
+  width: 100%;
+  /* 容器宽度与父元素相同 */
+}
+
+.text {
+  grid-column: 1 / -1;
+  /* 文本占据第一列到最后一列 */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.more {
+  grid-column: 2;
+  /* “更多”按钮在第二列 */
+  white-space: nowrap;
+}
