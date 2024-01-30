@@ -190,7 +190,14 @@ function App() {
             className="border-cyan-400 border-x border-y mt-2"
             style={{ width: "200px" }}
           >
-            <Ellipsis>多种存储. AList 支持多个存储提供商，包括本地存储、阿里云盘、OneDrive、</Ellipsis>
+            <Ellipsis
+              style={{
+                fontSize: "11px",
+              }}
+            >
+              多种存储. AList
+              支持多个存储提供商，包括本地存储、阿里云盘、OneDrive、
+            </Ellipsis>
           </div>
         </div>
         <Outlet />

@@ -10,51 +10,79 @@ import classnames from "classnames";
 interface Props {
   line?: number;
   children: React.ReactNode;
+  style?: React.CSSProperties;
 }
 
-export default function Ellipsis({ line = 2, children }: Props) {
+export default function Ellipsis({ line = 2, children, style }: Props) {
   const ref = useRef<HTMLDivElement>(null);
   const [isEllipsis, setEllipsis] = useState(false);
-  // let str = "";
 
   function isScroll(el: HTMLDivElement) {
     const { offsetHeight, scrollHeight } = el;
-    console.log(offsetHeight, scrollHeight);
     return scrollHeight > offsetHeight;
   }
 
-  function init() {
-    if (children) {
-      for (let i = 0; i < children.length; i++) {
-        console.log(children[i].offsetWidth);
-      }
-    }
+  function getLineHeight(el: HTMLDivElement) {
+    const { lineHeight } = getComputedStyle(el);
+    const multiple = (line - 1) * parseInt(lineHeight);
+    el.style.setProperty("--h", `${multiple}px`);
+    el.style.setProperty("--t", `-${multiple}px`);
   }
 
   useLayoutEffect(() => {
     const { current } = ref;
     if (current) {
       if (isScroll(current)) {
-        console.log(`${children}大雨了`);
         setEllipsis(true);
+        getLineHeight(current);
       }
     }
-    init()
   }, []);
+
+  // useEffect(() => {
+  //   let observer: MutationObserver;
+  //   const { current } = ref;
+  //   if (current) {
+  //     const callback = (
+  //       mutationsList: MutationRecord[],
+  //       observer: MutationObserver
+  //     ) => {
+  //       for (const mutation of mutationsList) {
+  //         console.log(mutation);
+  //         // if (mutation.type === "childList") {
+  //         if (isScroll(current)) {
+  //           setEllipsis(true);
+  //           getLineHeight(current);
+  //         } else {
+  //           setEllipsis(false);
+  //         }
+  //         // }
+  //       }
+  //     };
+
+  //     observer = new MutationObserver(callback);
+  //     observer.observe(current, {
+  //       attributes: true,
+  //       childList: true,
+  //     });
+  //   }
+  //   return () => {
+  //     if (observer) {
+  //       observer.disconnect();
+  //     }
+  //   };
+  // }, [ref.current]);
 
   return (
     <div
+      style={style}
       ref={ref}
       className={classnames(`ellipsisLn-${line}`, {
         isEllipsis: isEllipsis,
       })}
-      // className="container"
     >
-      {/* <div className="text">{children}</div> */}
-      {children}
-      {isEllipsis && (
-        <span className="text-cyan-400 float-left absolute bottom-0 right-0">更多</span>
-      )}
+      {isEllipsis && <span className="text-cyan-400 float-right">更多</span>}
+      <div className={classnames("childContent")}>{children}</div>
     </div>
   );
 }
