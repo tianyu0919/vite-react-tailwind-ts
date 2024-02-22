@@ -14,12 +14,14 @@ import './tailwind.css'
 import "@arco-design/web-react/dist/css/arco.css";
 
 
-const App = React.lazy(() => import('./views/Home/index.tsx'));
-const About = React.lazy(() => import('./views/About/index.tsx'));
-const Shop = React.lazy(() => import('./views/Shop/index.tsx'));
-const RecordVideo = React.lazy(() => import('./views/RecordVideo/index.tsx'));
-const AsyncFetch = React.lazy(() => import('./views/AsyncFetch'));
-const SuspenseDemo = React.lazy(() => import("./views/Suspense"));
+const App = lazy(() => import('./views/Home/index.tsx'));
+const About = lazy(() => import('./views/About/index.tsx'));
+const Shop = lazy(() => import('./views/Shop/index.tsx'));
+const RecordVideo = lazy(() => import('./views/RecordVideo/index.tsx'));
+const AsyncFetch = lazy(() => import('./views/AsyncFetch'));
+const SuspenseDemo = lazy(() => import("./views/Suspense"));
+const Debug = lazy(() => import("./views/Debug"));
+const QueeTask = lazy(() => import("./views/QueeTask"));
 
 import { HashRouter, Routes, Route } from 'react-router-dom';
 
@@ -33,6 +35,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <Route path="RecordVideo" element={<RecordVideo />} />
           <Route path="AsyncFetch" element={<AsyncFetch />} />
           <Route path="Suspense" element={<SuspenseDemo />} />
+          <Route path="debug" element={<Debug />} />
+          <Route path="queetask" element={<QueeTask />} />
         </Route>
       </Routes>
     </Suspense>

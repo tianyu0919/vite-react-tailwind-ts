@@ -1,0 +1,34 @@
+// 定义一个名为 .ellipsisLn 的混合（mixin）
+.ellipsisLn(@line) {
+  display: -webkit-box;
+  overflow: hidden;
+  word-wrap: break-word;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: @line;
+
+  position: relative;
+}
+
+.generate-ellipsisLn(@n: 1) when(@n <=100) {
+  .ellipsisLn-@{n} {
+    .ellipsisLn(@n);
+  }
+
+  .generate-ellipsisLn(@n + 1)
+}
+
+.generate-ellipsisLn();
+
+.isEllipsis {
+  &::before {
+    content: "";
+    display: block;
+    height: var(--h);
+  }
+}
+
+.childContent {
+  margin-top: var(--t);
+}

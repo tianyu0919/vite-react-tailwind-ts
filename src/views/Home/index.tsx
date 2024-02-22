@@ -28,11 +28,10 @@ import DewuCode from "./dewuCode/index.tsx";
 
 import CounterContext, { defaultValue } from "./context";
 import { strLowerCaseToUpperCase } from "@/utils";
-
-const jsx = <div>123</div>;
+import Ellipsis from "./Ellipsis";
 
 function App() {
-  console.log("App rerender", jsx);
+  console.log("App rerender");
   const navigate = useNavigate();
   const [count, setCount] = useState(0);
   const [darkMode, setDarkMode] = useState<boolean>(
@@ -165,14 +164,42 @@ function App() {
           <DewuCode />
         </div>
 
-        <Button
-          onClick={() => {
-            const str = strLowerCaseToUpperCase("hello world");
-            console.log(str);
-          }}
-        >
-          转换单词首字母大写
-        </Button>
+        <div className="mt-2">
+          <Button
+            onClick={() => {
+              const str = strLowerCaseToUpperCase("hello world");
+              console.log(str);
+            }}
+          >
+            转换单词首字母大写
+          </Button>
+        </div>
+
+        <div className="mt-2">
+          <h1>换行显示</h1>
+          <div
+            className="border-cyan-400 border-x border-y mt-2"
+            style={{ width: "200px" }}
+          >
+            <Ellipsis>
+              多种存储. AList
+              支持多个存储提供商，包括本地存储、阿里云盘、OneDrive、
+            </Ellipsis>
+          </div>
+          <div
+            className="border-cyan-400 border-x border-y mt-2"
+            style={{ width: "200px" }}
+          >
+            <Ellipsis
+              style={{
+                fontSize: "11px",
+              }}
+            >
+              多种存储. AList
+              支持多个存储提供商，包括本地存储、阿里云盘、OneDrive、
+            </Ellipsis>
+          </div>
+        </div>
         <Outlet />
       </div>
     </>
